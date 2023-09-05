@@ -1,0 +1,42 @@
+.tripCard {
+  margin: 3px;
+  padding: 3px;
+  background-color: #adadad;
+  border: 3px solid black;
+  border-radius: 8px;
+  width: 25%;
+  min-width: 250px;
+  max-width: 350px;
+  text-align: center;
+}
+
+img {
+  width: 95%;
+  border-radius: 10px;
+}
+
+.error {
+  background-color: red;
+  border: 3px solid black;
+  font-size: large;
+  margin: 3px;
+}
+
+.container {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.fx-wrap {
+  flex-wrap: wrap;
+}
+
+.fx-col {
+  flex-direction: column;
+}
+.trip-detailes p{
+  margin: 3px 0 3px 0;
+  font-size: medium;
+}
