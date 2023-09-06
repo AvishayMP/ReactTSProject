@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import 
-{ TripContext, TripsContextType } from './context/Trips/TripContext';
+import { TripContext, TripsContextType } from './context/Trips/TripContext';
 import TripCard from './TripCard';
 import { Trip } from './models/trip';
 import { Link } from 'react-router-dom';
@@ -16,7 +15,7 @@ function Trips(): JSX.Element {
         <h1>Trips</h1>
         <div className="container fx-wrap">
             {trips && trips.map((trip: Trip): JSX.Element => {
-                return <TripCard key={'tripCard_' + trip.id} id={trip.id} />;
+                return <TripCard key={'tripCard_' + trip.id} trip={trip} />;
             })}
         </div>
     </>);

@@ -3,27 +3,32 @@ import { Trip, TripBaseAPI } from "./models/trip";
 import { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { TripContext } from "./context/Trips/TripContext";
+import { AuthContext, AuthContextType } from "./context/Trips/AuthContext";
 
 function TripDetailes() {
     const { id } = useParams<string>();
     const navigate = useNavigate();
     const [trip, setTrip] = useState<Trip | null>(null);
-    
+
     useEffect(() => {
         axios.get(TripBaseAPI + '/' + id).then(data => setTrip(data.data));
     }, [id]);
-    
+
     const context = useContext(TripContext);
+    const authContext = useContext<AuthContextType>(AuthContext);
+
+    const { token } = authContext;
+
     if (!context) return <div>Loading...</div>;
     const { trips, setTrips } = context;
-    
     if (!trip || !trips) {
         return <div className="error">Trip Not Found</div>;
     }
-    const removeTrip = (id: string, auth: string): void => {
+
+    const removeTrip = (id: string): void => {
         axios.delete(TripBaseAPI + '/' + id,
             {
-                headers: { authorization: auth }
+                headers: { authorization: token }
             })
             .then(res => {
                 setTrips(trips.filter((t: Trip) => t.id !== res.data.id));
@@ -47,7 +52,7 @@ function TripDetailes() {
             </div>
             <button onClick={(e) => {
                 e.stopPropagation();
-                removeTrip(trip.id, 'test-token');
+                removeTrip(trip.id);
                 navigate('/trips');
             }}>Remove</button>
         </div>

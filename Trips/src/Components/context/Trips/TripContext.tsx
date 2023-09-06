@@ -14,7 +14,6 @@ export const TripContext = createContext<TripsContextType | null>(null);
 
 function TripsContextProvider(props: TripsContextProviderProps) {
     const [trips, setTrips] = useState<Trip[] | undefined>(undefined);
-
     useEffect(() => {
         axios.get(TripBaseAPI)
             .then((data: AxiosResponse<Trip[]>): void => {
@@ -22,7 +21,7 @@ function TripsContextProvider(props: TripsContextProviderProps) {
             }).catch(err => console.error(err));
     }, []);
 
-    return (<TripContext.Provider value={{ trips, setTrips }}>
+    return (<TripContext.Provider value={{ trips, setTrips}}>
         {props.children}
     </TripContext.Provider>)
 }

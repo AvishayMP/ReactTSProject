@@ -2,27 +2,26 @@ import { useContext } from "react";
 import { TripContext, TripsContextType } from "./context/Trips/TripContext";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { TripBaseAPI } from "./models/trip";
+import { Trip, TripBaseAPI } from "./models/trip";
+import { AuthContext, AuthContextType } from "./context/Trips/AuthContext";
 
-interface TripDetailesProps {
-    id?: string;
-}
 
-function TripCard({ id }: TripDetailesProps): JSX.Element {
-    const context = useContext<TripsContextType | null>(TripContext);
+function TripCard({ trip }: { trip: Trip }): JSX.Element {
     const navigate = useNavigate();
+
+    const context = useContext<TripsContextType | null>(TripContext);
+    const authContext = useContext<AuthContextType>(AuthContext);
 
     if (!context || !context.trips) return <div className="error">NO TRIPS DATA</div>
     const { trips, setTrips } = context!;
 
-    const trip = trips?.find(trip => trip.id == id);
+    if (!authContext) return <div className="error">NO AUTH DATA</div>
+    const { token } = authContext;
 
-    if (!trip) return <div className="error">NO TRIP FOUND</div>
-
-    const removeTrip = (id: string, auth: string): void => {
+    const removeTrip = (id: string): void => {
         axios.delete(TripBaseAPI + '/' + id,
             {
-                headers: { authorization: auth }
+                headers: { authorization: token }
             })
             .then(data => {
                 console.log('removed:', data);
@@ -35,7 +34,7 @@ function TripCard({ id }: TripDetailesProps): JSX.Element {
     return <>
         <div className="trip-card" onClick={(e) => {
             e.stopPropagation();
-            navigate('/trip/' + id);
+            navigate('/trip/' + trip.id);
         }}>
             <img src={trip.image} alt={trip.name} />
             <div className="container fx-col trip-detailes">
@@ -46,8 +45,12 @@ function TripCard({ id }: TripDetailesProps): JSX.Element {
             </div>
             <button onClick={(e) => {
                 e.stopPropagation();
-                removeTrip(trip.id, 'test-token');
+                removeTrip(trip.id);
             }}>Remove</button>
+            <button onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/updtrip/${trip.id}`);
+            }}>Update</button>
         </div>
     </>;
 }
