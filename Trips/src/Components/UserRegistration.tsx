@@ -1,8 +1,5 @@
-import { nav } from "./models/types";
-interface UserRegistrationProps {
-    nav: nav;
-}
-function UserRegistration({ nav }: UserRegistrationProps): JSX.Element {
+
+function UserRegistration(): JSX.Element {
     return (<>Register</>);
 }
 

@@ -1,4 +1,4 @@
-.tripCard {
+.trip-card {
   margin: 3px;
   padding: 3px;
   background-color: #adadad;
@@ -7,6 +7,24 @@
   width: 25%;
   min-width: 250px;
   max-width: 350px;
+  text-align: center;
+}
+.trip-page {
+  margin: 3px;
+  padding: 3px;
+  background-color: #adadad;
+  border: 3px solid black;
+  border-radius: 8px;
+  width: 90vw;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-align: center;
 }
 
@@ -36,7 +54,13 @@ img {
 .fx-col {
   flex-direction: column;
 }
-.trip-detailes p{
+
+.trip-detailes p {
   margin: 3px 0 3px 0;
   font-size: medium;
+}
+a{
+  margin: 2px;
+  padding: 3px;
+  border: 2px solid #000;
 }

@@ -1,22 +1,22 @@
 import { useContext } from 'react';
-import { nav } from "./models/types";
-import { TripContext, TripsContextType } from './context/Trips/TripContext';
-import TripDetail from './TripDetail';
+import 
+{ TripContext, TripsContextType } from './context/Trips/TripContext';
+import TripCard from './TripCard';
 import { Trip } from './models/trip';
+import { Link } from 'react-router-dom';
 
-interface TripProps {
-    nav: nav;
-}
-function Trips({ nav }: TripProps): JSX.Element {
+function Trips(): JSX.Element {
     const context = useContext<TripsContextType | null>(TripContext);
     if (!context) return <div className="error">NO TRIPS DATA</div>
     const { trips } = context;
 
     return (<>
+        <Link to="/">Home</Link>
+        <Link to="/newtrip">Add new trip</Link>
         <h1>Trips</h1>
         <div className="container fx-wrap">
-            {trips && trips.map((trip: Trip, index: number): JSX.Element => {
-                return <TripDetail key={'tripCard_' + index} id={trip.id} />
+            {trips && trips.map((trip: Trip): JSX.Element => {
+                return <TripCard key={'tripCard_' + trip.id} id={trip.id} />;
             })}
         </div>
     </>);

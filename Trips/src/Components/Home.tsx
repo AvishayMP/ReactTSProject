@@ -1,14 +1,10 @@
+import { Link } from 'react-router-dom';
 
-import {currentVeiw, nav} from './models/types';
-
-interface HomeProps {
-    nav: nav;
-}
-function Home({ nav }: HomeProps) {
+function Home() {
     return (<>
-        <button onClick={() => nav(currentVeiw.Trips)}>All Trips</button>
-        <button onClick={() => nav(currentVeiw.LogIn)}>log in</button>
-        <button onClick={() => nav(currentVeiw.SignIn)}>Sign in</button>
+        <Link to='/trips'>Trips</Link>
+        <Link to='/login'>log in</Link>
+        <Link to='/register'>Register</Link>
     </>);
 }
 

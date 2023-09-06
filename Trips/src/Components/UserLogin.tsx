@@ -1,9 +1,5 @@
-import { nav } from "./models/types";
 
-interface UserLoginProps {
-    nav: nav;
-}
-function UserLogin({ nav }: UserLoginProps): JSX.Element {
+function UserLogin(): JSX.Element {
     return (<>
         Login
     </>);

@@ -9,3 +9,5 @@ export interface Trip {
     image: string;
     activities: string[];
   }
+
+export const TripBaseAPI:string='http://localhost:3000/api/trips';

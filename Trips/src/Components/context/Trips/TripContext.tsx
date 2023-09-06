@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { Trip } from "../../models/trip";
+import { Trip, TripBaseAPI } from "../../models/trip";
+import axios, { AxiosResponse } from 'axios';
 
 export interface TripsContextProviderProps {
     children: React.ReactNode;
@@ -15,17 +16,10 @@ function TripsContextProvider(props: TripsContextProviderProps) {
     const [trips, setTrips] = useState<Trip[] | undefined>(undefined);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/trips").then(res => {
-            if (res.ok) {
-                console.log(res);
-                return res.json();
-            }
-        }).then(data => {
-            if (data) {
-                console.log('data loaded:' + data);
-                setTrips(data);
-            }
-        }).catch(err => console.error(err));
+        axios.get(TripBaseAPI)
+            .then((data: AxiosResponse<Trip[]>): void => {
+                setTrips(data.data);
+            }).catch(err => console.error(err));
     }, []);
 
     return (<TripContext.Provider value={{ trips, setTrips }}>
